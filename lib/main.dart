@@ -1,3 +1,4 @@
+import 'package:fast_qr/views/history_view.dart';
 import 'package:fast_qr/views/qr_code_generator_view.dart';
 import 'package:fast_qr/views/qr_code_scanner_view.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'QR Code Scanner App',
         home:
-            QRCodeGeneratorView(),
+            // QRCodeGeneratorView(),
             // QRCodeScannerView(),
+            HistoryView(),
       ),
     );
   }

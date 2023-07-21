@@ -14,7 +14,7 @@ class QRCodeScannerView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'QR Code Scanner',
+          'Scan QR Code',
           style: TextStyle(
             color: Colors.black,
           ),
