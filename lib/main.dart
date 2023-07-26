@@ -2,29 +2,26 @@ import 'package:fast_qr/views/history_view.dart';
 import 'package:fast_qr/views/qr_code_generator_view.dart';
 import 'package:fast_qr/views/qr_code_scanner_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
-import 'blocs/qr_code_scanner_bloc.dart';
+import 'controllers/qr_code_scanner_controller.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<QRCodeScannerCubit>(
-            create: (context) => QRCodeScannerCubit()),
-      ],
-      child: MaterialApp(
-        title: 'QR Code Scanner App',
-        home:
-            // QRCodeGeneratorView(),
-            // QRCodeScannerView(),
-            HistoryView(),
-      ),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'QR Code Scanner App',
+      home:
+          QRCodeGeneratorView(),
+          // QRCodeScannerView(),
+          // HistoryView(),
     );
   }
 }

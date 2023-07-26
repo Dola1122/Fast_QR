@@ -6,12 +6,26 @@ class QRCodeGeneratorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Generate QR Code')),
+      appBar: AppBar(
+        title: Text(
+          'Generate QR Code',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: Colors.grey.shade200,
+        centerTitle: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(0),
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
+            crossAxisCount: 2,
             // You can change this to adjust the number of columns
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
@@ -21,26 +35,22 @@ class QRCodeGeneratorView extends StatelessWidget {
             return _generateQRCodeCard(
               icon: qrCodeTypes[index].icon,
               title: qrCodeTypes[index].title,
-              generateQRCode: qrCodeTypes[index].generateQRCode,
             );
           },
         ),
       ),
+      backgroundColor: Colors.blue.shade50,
     );
   }
 
   Widget _generateQRCodeCard({
     required IconData icon,
     required String title,
-    required VoidCallback generateQRCode,
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.blue.shade50,
-        borderRadius: BorderRadius.circular(8)
-      ),
+          color: Colors.white, borderRadius: BorderRadius.circular(8)),
       child: InkWell(
-        onTap: generateQRCode,
         borderRadius: BorderRadius.circular(12),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,79 +74,71 @@ class QRCodeGeneratorView extends StatelessWidget {
 class QRCodeType {
   final IconData icon;
   final String title;
-  final VoidCallback generateQRCode;
+  final generateQRData; // Function to return the QR code data
 
   QRCodeType({
     required this.icon,
     required this.title,
-    required this.generateQRCode,
+    required this.generateQRData,
   });
 }
 
 final List<QRCodeType> qrCodeTypes = [
-  // Existing QR code types
   QRCodeType(
     icon: Icons.text_fields,
     title: 'Plain Text',
-    generateQRCode: () {
-      // Logic to generate Plain Text QR Code
+    generateQRData: (String text) {
+      return text;
     },
   ),
   QRCodeType(
     icon: Icons.link,
     title: 'URL',
-    generateQRCode: () {
-      // Logic to generate URL QR Code
+    generateQRData: (String url) {
+      return url;
     },
   ),
   QRCodeType(
     icon: Icons.wifi,
     title: 'WiFi',
-    generateQRCode: () {
-      // Logic to generate WiFi QR Code
+    generateQRData: (String ssid, String password, String encryptionType) {
+      return 'WIFI:S:$ssid;T:$encryptionType;P:$password;;';
     },
   ),
   QRCodeType(
     icon: Icons.contacts,
     title: 'Contact',
-    generateQRCode: () {
-      // Logic to generate Contact QR Code
+    generateQRData: (String fullName, String phoneNumber, String emailAddress) {
+      return 'BEGIN:VCARD\nVERSION:3.0\nFN:$fullName\nTEL:$phoneNumber\nEMAIL:$emailAddress\nEND:VCARD';
     },
   ),
   QRCodeType(
     icon: Icons.phone,
     title: 'Phone',
-    generateQRCode: () {
-      // Logic to generate Phone Number QR Code
+    generateQRData: (String phoneNumber) {
+      return 'tel:$phoneNumber';
     },
   ),
   QRCodeType(
     icon: Icons.email,
     title: 'Email',
-    generateQRCode: () {
-      // Logic to generate Email QR Code
+    generateQRData: (String emailAddress) {
+      return 'mailto:$emailAddress';
     },
   ),
   QRCodeType(
     icon: Icons.event,
     title: 'Calendar Event',
-    generateQRCode: () {
-      // Logic to generate Calendar Event QR Code
+    generateQRData: (String eventSummary, String startDate, String endDate,
+        String location) {
+      return 'BEGIN:VEVENT\nSUMMARY:$eventSummary\nDTSTART:$startDate\nDTEND:$endDate\nLOCATION:$location\nEND:VEVENT';
     },
   ),
-  // Additional QR code types
   QRCodeType(
     icon: Icons.location_on,
     title: 'Location',
-    generateQRCode: () {
-      // Logic to generate Location QR Code
-    },
-  ),
-  QRCodeType(
-    icon: Icons.payment,
-    title: 'Payment',
-    generateQRCode: () {
-      // Logic to generate Payment QR Code
+    generateQRData: (double latitude, double longitude) {
+      return 'geo:$latitude,$longitude';
     },
   ),
 ];

@@ -1,13 +1,15 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import '../blocs/qr_code_scanner_bloc.dart';
-import '../blocs/qr_code_scanner_state.dart';
+import 'package:get/get.dart';
+import '../controllers/qr_code_scanner_controller.dart';
 
 class QRCodeScannerView extends StatelessWidget {
-  const QRCodeScannerView({super.key});
+
+
+  QRCodeScannerView({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,19 +29,17 @@ class QRCodeScannerView extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocConsumer<QRCodeScannerCubit, QRCodeScannerState>(
-        listener: (context, state) {},
-        builder: (context, state) {
+      body: GetX<QRCodeScannerController>(
+        init: QRCodeScannerController(),
+        builder: (controller) {
           return Column(
             children: [
               Expanded(
                 child: Stack(
                   children: [
                     QRView(
-                      key: BlocProvider.of<QRCodeScannerCubit>(context).qrKey,
-                      onQRViewCreated:
-                          BlocProvider.of<QRCodeScannerCubit>(context)
-                              .onQRViewCreated,
+                      key: controller.qrKey,
+                      onQRViewCreated: controller.onQRViewCreated,
                       overlay: QrScannerOverlayShape(
                         borderColor: Colors.red,
                         borderRadius: 10,
@@ -59,12 +59,9 @@ class QRCodeScannerView extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.all(8),
                               child: IconButton(
-                                onPressed: () =>
-                                    BlocProvider.of<QRCodeScannerCubit>(context)
-                                        .toggleFlash(),
+                                onPressed: () => controller.toggleFlash(),
                                 icon: Icon(
-                                  BlocProvider.of<QRCodeScannerCubit>(context)
-                                          .state is QRCodeScannerFlashOnState
+                                  controller.isFlashOn.value
                                       ? Icons.flash_on
                                       : Icons.flash_off,
                                 ),
@@ -73,12 +70,9 @@ class QRCodeScannerView extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.all(8),
                               child: IconButton(
-                                onPressed: () =>
-                                    BlocProvider.of<QRCodeScannerCubit>(context)
-                                        .flipCamera(),
+                                onPressed: () => controller.flipCamera(),
                                 icon: Icon(
-                                  BlocProvider.of<QRCodeScannerCubit>(context)
-                                          .state is QRCodeScannerBackCameraState
+                                  controller.isBackCamera.value
                                       ? Icons.camera_rear
                                       : Icons.camera_front,
                                 ),
@@ -88,21 +82,6 @@ class QRCodeScannerView extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-              FittedBox(
-                fit: BoxFit.contain,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    if (BlocProvider.of<QRCodeScannerCubit>(context).result !=
-                        null)
-                      Text(
-                        'Barcode Type: ${describeEnum(BlocProvider.of<QRCodeScannerCubit>(context).result!.format)}   Data: ${BlocProvider.of<QRCodeScannerCubit>(context).result!.code}',
-                      )
-                    else
-                      Text('Scan a code'),
                   ],
                 ),
               ),
