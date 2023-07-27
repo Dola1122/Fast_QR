@@ -24,6 +24,7 @@ class QRCodeScannerController extends GetxController {
     });
   }
 
+
   void toggleFlash() {
     controller.value?.toggleFlash();
     isFlashOn.value = !isFlashOn.value;

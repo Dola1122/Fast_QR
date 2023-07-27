@@ -1,4 +1,14 @@
+import 'package:fast_qr/views/qr_code_generation_views/generate_calender_event_qr_view.dart';
+import 'package:fast_qr/views/qr_code_generation_views/generate_contact_qr_view.dart';
+import 'package:fast_qr/views/qr_code_generation_views/generate_email_qr_view.dart';
+import 'package:fast_qr/views/qr_code_generation_views/generate_location_qr_view.dart';
+import 'package:fast_qr/views/qr_code_generation_views/generate_phone_qr_view.dart';
+import 'package:fast_qr/views/qr_code_generation_views/generate_text_qr_view.dart';
+import 'package:fast_qr/views/qr_code_generation_views/generate_url_qr_view.dart';
+import 'package:fast_qr/views/qr_code_generation_views/generate_wifi_qr_view.dart';
 import 'package:flutter/material.dart';
+import '../models/qr_code_categories.dart';
+import 'package:get/get.dart';
 
 class QRCodeGeneratorView extends StatelessWidget {
   const QRCodeGeneratorView({Key? key}) : super(key: key);
@@ -30,11 +40,10 @@ class QRCodeGeneratorView extends StatelessWidget {
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
           ),
-          itemCount: qrCodeTypes.length,
+          itemCount: qrCodeCategories.length,
           itemBuilder: (context, index) {
             return _generateQRCodeCard(
-              icon: qrCodeTypes[index].icon,
-              title: qrCodeTypes[index].title,
+              category: qrCodeCategories[index],
             );
           },
         ),
@@ -44,22 +53,24 @@ class QRCodeGeneratorView extends StatelessWidget {
   }
 
   Widget _generateQRCodeCard({
-    required IconData icon,
-    required String title,
+    required QRCodeCategory category,
   }) {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(8)),
       child: InkWell(
+        onTap: () {
+          onTapCategory(category.qRType);
+        },
         borderRadius: BorderRadius.circular(12),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(icon),
+            Icon(category.icon),
             SizedBox(height: 8),
             Text(
-              title,
+              category.title,
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -71,74 +82,31 @@ class QRCodeGeneratorView extends StatelessWidget {
   }
 }
 
-class QRCodeType {
-  final IconData icon;
-  final String title;
-  final generateQRData; // Function to return the QR code data
-
-  QRCodeType({
-    required this.icon,
-    required this.title,
-    required this.generateQRData,
-  });
+void onTapCategory(QRType type) {
+  switch (type) {
+    case QRType.textQR:
+      Get.to(GenerateTextQRView());
+      break;
+    case QRType.urlQR:
+      Get.to(GenerateURLQRView());
+      break;
+    case QRType.wiFiQR:
+      Get.to(GenerateWiFiQRView());
+      break;
+    case QRType.contactQR:
+      Get.to(GenerateContactQRView());
+      break;
+    case QRType.phoneQR:
+      Get.to(GeneratePhoneQRView());
+      break;
+    case QRType.emailQR:
+      Get.to(GenerateEmailQRView());
+      break;
+    case QRType.calendarEventQR:
+      Get.to(GenerateCalendarEventQRView());
+      break;
+    case QRType.locationQR:
+      Get.to(GenerateLocationQRView());
+      break;
+  }
 }
-
-final List<QRCodeType> qrCodeTypes = [
-  QRCodeType(
-    icon: Icons.text_fields,
-    title: 'Plain Text',
-    generateQRData: (String text) {
-      return text;
-    },
-  ),
-  QRCodeType(
-    icon: Icons.link,
-    title: 'URL',
-    generateQRData: (String url) {
-      return url;
-    },
-  ),
-  QRCodeType(
-    icon: Icons.wifi,
-    title: 'WiFi',
-    generateQRData: (String ssid, String password, String encryptionType) {
-      return 'WIFI:S:$ssid;T:$encryptionType;P:$password;;';
-    },
-  ),
-  QRCodeType(
-    icon: Icons.contacts,
-    title: 'Contact',
-    generateQRData: (String fullName, String phoneNumber, String emailAddress) {
-      return 'BEGIN:VCARD\nVERSION:3.0\nFN:$fullName\nTEL:$phoneNumber\nEMAIL:$emailAddress\nEND:VCARD';
-    },
-  ),
-  QRCodeType(
-    icon: Icons.phone,
-    title: 'Phone',
-    generateQRData: (String phoneNumber) {
-      return 'tel:$phoneNumber';
-    },
-  ),
-  QRCodeType(
-    icon: Icons.email,
-    title: 'Email',
-    generateQRData: (String emailAddress) {
-      return 'mailto:$emailAddress';
-    },
-  ),
-  QRCodeType(
-    icon: Icons.event,
-    title: 'Calendar Event',
-    generateQRData: (String eventSummary, String startDate, String endDate,
-        String location) {
-      return 'BEGIN:VEVENT\nSUMMARY:$eventSummary\nDTSTART:$startDate\nDTEND:$endDate\nLOCATION:$location\nEND:VEVENT';
-    },
-  ),
-  QRCodeType(
-    icon: Icons.location_on,
-    title: 'Location',
-    generateQRData: (double latitude, double longitude) {
-      return 'geo:$latitude,$longitude';
-    },
-  ),
-];
