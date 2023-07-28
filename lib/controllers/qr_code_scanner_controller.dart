@@ -20,7 +20,7 @@ class QRCodeScannerController extends GetxController {
 
       // Navigate to the ScannedQRView after scanning the QR code.
       Get.off(() => ScannedQRView(data: scanData));
-      Get.delete<QRCodeScannerController>();
+      // Get.delete<QRCodeScannerController>();
     });
   }
 

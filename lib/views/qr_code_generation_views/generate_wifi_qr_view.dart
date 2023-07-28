@@ -1,3 +1,4 @@
+import 'package:fast_qr/controllers/qr_generator_controller.dart';
 import 'package:fast_qr/models/qr_code_types.dart';
 import 'package:flutter/material.dart';
 
@@ -6,8 +7,9 @@ class GenerateWiFiQRView extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController encryptionTypeController =
       TextEditingController();
+  final QRGeneratorController controller;
 
-  GenerateWiFiQRView({super.key});
+  GenerateWiFiQRView({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +54,8 @@ class GenerateWiFiQRView extends StatelessWidget {
                 String password = passwordController.text;
                 String encryptionType = encryptionTypeController.text;
                 // Generate the QR code based on ssid, password, and encryptionType using WiFiQRData
-                QRData qRData = WiFiQRData(ssid, password, encryptionType);
-                qRData.generateQRDataString();
+                controller.qrData = WiFiQRData(ssid, password, encryptionType);
+                controller.generateQRCode();
               },
               child: Text('Generate QR Code'),
             ),

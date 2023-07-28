@@ -1,9 +1,12 @@
+import 'package:fast_qr/controllers/qr_generator_controller.dart';
+import 'package:fast_qr/models/qr_code_types.dart';
 import 'package:flutter/material.dart';
 
 class GenerateURLQRView extends StatelessWidget {
   final TextEditingController urlController = TextEditingController();
+  final QRGeneratorController controller;
 
-  GenerateURLQRView({super.key});
+  GenerateURLQRView({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +41,8 @@ class GenerateURLQRView extends StatelessWidget {
               onPressed: () {
                 String url = urlController.text;
                 // Generate the QR code based on url using URLQRData
+                controller.qrData = URLQRData(url);
+                controller.generateQRCode();
               },
               child: Text('Generate QR Code'),
             ),

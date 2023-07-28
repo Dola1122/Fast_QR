@@ -6,10 +6,7 @@ import 'package:get/get.dart';
 import '../controllers/qr_code_scanner_controller.dart';
 
 class QRCodeScannerView extends StatelessWidget {
-
-
-  QRCodeScannerView({super.key});
-
+  const QRCodeScannerView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +27,7 @@ class QRCodeScannerView extends StatelessWidget {
         ),
       ),
       body: GetX<QRCodeScannerController>(
-        init: QRCodeScannerController(),
+        init: Get.find<QRCodeScannerController>(),
         builder: (controller) {
           return Column(
             children: [
@@ -87,22 +84,6 @@ class QRCodeScannerView extends StatelessWidget {
               ),
             ],
           );
-        },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.black,
-        backgroundColor: Colors.grey.shade200,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.camera_alt), label: 'Scan'),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
-          BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: 'Generate'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Settings'),
-        ],
-        currentIndex: 0,
-        onTap: (index) {
-          // Logic to navigate between views
         },
       ),
     );

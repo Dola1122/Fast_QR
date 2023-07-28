@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'control_view.dart';
 import 'qr_code_scanner_view.dart';
 
 class ScannedQRView extends StatelessWidget {
@@ -14,7 +15,7 @@ class ScannedQRView extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         // Execute custom logic when the Android back button is pressed
-        Get.off(() => QRCodeScannerView());
+        Get.off(() => ControlView());
         return true; // Return true to allow the back navigation
       },
       child: Scaffold(

@@ -1,11 +1,14 @@
+import 'package:fast_qr/controllers/qr_generator_controller.dart';
+import 'package:fast_qr/models/qr_code_types.dart';
 import 'package:flutter/material.dart';
 
 class GenerateContactQRView extends StatelessWidget {
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController emailAddressController = TextEditingController();
+  final QRGeneratorController controller;
 
-  GenerateContactQRView({super.key});
+  GenerateContactQRView({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +53,8 @@ class GenerateContactQRView extends StatelessWidget {
                 String phoneNumber = phoneNumberController.text;
                 String emailAddress = emailAddressController.text;
                 // Generate the QR code based on fullName, phoneNumber, and emailAddress using ContactQRData
+                controller.qrData = ContactQRData(fullName, phoneNumber, emailAddress);
+                controller.generateQRCode();
               },
               child: Text('Generate QR Code'),
             ),

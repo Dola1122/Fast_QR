@@ -7,11 +7,14 @@ import 'package:fast_qr/views/qr_code_generation_views/generate_text_qr_view.dar
 import 'package:fast_qr/views/qr_code_generation_views/generate_url_qr_view.dart';
 import 'package:fast_qr/views/qr_code_generation_views/generate_wifi_qr_view.dart';
 import 'package:flutter/material.dart';
+import '../controllers/qr_generator_controller.dart';
 import '../models/qr_code_categories.dart';
 import 'package:get/get.dart';
 
 class QRCodeGeneratorView extends StatelessWidget {
-  const QRCodeGeneratorView({Key? key}) : super(key: key);
+  QRCodeGeneratorView({Key? key}) : super(key: key);
+
+  QRGeneratorController controller = Get.put(QRGeneratorController());
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,7 @@ class QRCodeGeneratorView extends StatelessWidget {
           color: Colors.white, borderRadius: BorderRadius.circular(8)),
       child: InkWell(
         onTap: () {
-          onTapCategory(category.qRType);
+          onTapCategory(category.qRType, controller);
         },
         borderRadius: BorderRadius.circular(12),
         child: Column(
@@ -82,31 +85,31 @@ class QRCodeGeneratorView extends StatelessWidget {
   }
 }
 
-void onTapCategory(QRType type) {
+void onTapCategory(QRType type, QRGeneratorController controller) {
   switch (type) {
     case QRType.textQR:
-      Get.to(GenerateTextQRView());
+      Get.to(() => GenerateTextQRView(controller: controller));
       break;
     case QRType.urlQR:
-      Get.to(GenerateURLQRView());
+      Get.to(() => GenerateURLQRView(controller: controller));
       break;
     case QRType.wiFiQR:
-      Get.to(GenerateWiFiQRView());
+      Get.to(() => GenerateWiFiQRView(controller: controller));
       break;
     case QRType.contactQR:
-      Get.to(GenerateContactQRView());
+      Get.to(() => GenerateContactQRView(controller: controller));
       break;
     case QRType.phoneQR:
-      Get.to(GeneratePhoneQRView());
+      Get.to(() => GeneratePhoneQRView(controller: controller));
       break;
     case QRType.emailQR:
-      Get.to(GenerateEmailQRView());
+      Get.to(() => GenerateEmailQRView(controller: controller));
       break;
     case QRType.calendarEventQR:
-      Get.to(GenerateCalendarEventQRView());
+      Get.to(() => GenerateCalendarEventQRView(controller: controller));
       break;
     case QRType.locationQR:
-      Get.to(GenerateLocationQRView());
+      Get.to(() => GenerateLocationQRView(controller: controller));
       break;
   }
 }

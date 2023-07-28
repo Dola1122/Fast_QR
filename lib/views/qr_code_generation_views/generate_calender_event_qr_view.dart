@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../controllers/qr_generator_controller.dart';
+
 class GenerateCalendarEventQRView extends StatelessWidget {
   final TextEditingController eventSummaryController = TextEditingController();
   final TextEditingController startDateController = TextEditingController();
   final TextEditingController endDateController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+  final QRGeneratorController controller;
+
+  GenerateCalendarEventQRView({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

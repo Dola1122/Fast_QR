@@ -55,6 +55,8 @@ dev_dependencies:
   flutter_signature_pad: ^3.0.1
   image_gallery_saver: ^2.0.3
   path_provider: ^2.0.15
+  permission_handler: ^10.4.3
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

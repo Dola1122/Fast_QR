@@ -1,9 +1,13 @@
+import 'package:fast_qr/controllers/qr_generator_controller.dart';
 import 'package:flutter/material.dart';
+
+import '../../models/qr_code_types.dart';
 
 class GeneratePhoneQRView extends StatelessWidget {
   final TextEditingController phoneNumberController = TextEditingController();
+  final QRGeneratorController controller;
 
-  GeneratePhoneQRView({super.key});
+  GeneratePhoneQRView({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +42,8 @@ class GeneratePhoneQRView extends StatelessWidget {
               onPressed: () {
                 String phoneNumber = phoneNumberController.text;
                 // Generate the QR code based on phoneNumber using PhoneQRData
+                controller.qrData = PhoneQRData(phoneNumber);
+                controller.generateQRCode();
               },
               child: Text('Generate QR Code'),
             ),
