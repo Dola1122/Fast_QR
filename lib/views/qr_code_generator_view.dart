@@ -11,6 +11,8 @@ import '../controllers/qr_generator_controller.dart';
 import '../models/qr_code_categories.dart';
 import 'package:get/get.dart';
 
+import '../models/qr_type_enum.dart';
+
 class QRCodeGeneratorView extends StatelessWidget {
   QRCodeGeneratorView({Key? key}) : super(key: key);
 

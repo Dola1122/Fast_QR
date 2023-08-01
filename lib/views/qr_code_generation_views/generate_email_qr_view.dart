@@ -1,5 +1,5 @@
 import 'package:fast_qr/controllers/qr_generator_controller.dart';
-import 'package:fast_qr/models/qr_code_types.dart';
+import 'package:fast_qr/models/qr_code_types_raw_data.dart';
 import 'package:flutter/material.dart';
 
 class GenerateEmailQRView extends StatelessWidget {
@@ -41,7 +41,7 @@ class GenerateEmailQRView extends StatelessWidget {
               onPressed: () {
                 String emailAddress = emailAddressController.text;
                 // Generate the QR code based on emailAddress using EmailQRData
-                controller.qrData = EmailQRData(emailAddress);
+                controller.qrData = EmailQRData(emailAddress: emailAddress);
                 controller.generateQRCode();
               },
               child: Text('Generate QR Code'),

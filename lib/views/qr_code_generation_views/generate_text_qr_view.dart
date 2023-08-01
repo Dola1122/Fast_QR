@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/qr_generator_controller.dart';
-import '../../models/qr_code_types.dart';
+import '../../models/qr_code_types_raw_data.dart';
 
 class GenerateTextQRView extends StatelessWidget {
   final TextEditingController textController = TextEditingController();
@@ -46,7 +46,7 @@ class GenerateTextQRView extends StatelessWidget {
               onPressed: () {
                 String text = textController.text;
                 // Generate the QR code based on qrData using TextQRData
-                controller.qrData = TextQRData(text);
+                controller.qrData = TextQRData(text: text);
                 controller.generateQRCode();
               },
               child: Text('Generate QR Code'),

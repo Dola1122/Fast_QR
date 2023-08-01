@@ -14,16 +14,20 @@ class QRCodeScannerController extends GetxController {
 
   void onQRViewCreated(QRViewController controller) {
     this.controller.value = controller;
-    controller.scannedDataStream.listen((scanData) {
-      result.value = scanData;
-      log(scanData.code.toString());
+    controller.scannedDataStream.listen(
+      (scanData) {
+        // to make it scan qr codes only
+        if (scanData.format == BarcodeFormat.qrcode) {
+          result.value = scanData;
+          log(scanData.code.toString());
 
-      // Navigate to the ScannedQRView after scanning the QR code.
-      Get.off(() => ScannedQRView(data: scanData));
-      // Get.delete<QRCodeScannerController>();
-    });
+          // Navigate to the ScannedQRView after scanning the QR code.
+          Get.off(() => ScannedQRView(data: scanData));
+          // Get.delete<QRCodeScannerController>();
+        }
+      },
+    );
   }
-
 
   void toggleFlash() {
     controller.value?.toggleFlash();

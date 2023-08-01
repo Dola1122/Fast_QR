@@ -5,7 +5,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:fast_qr/views/generated_qr_view.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import '../models/qr_code_types.dart';
+import '../models/qr_code_types_raw_data.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class QRGeneratorController extends GetxController {

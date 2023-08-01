@@ -1,5 +1,5 @@
 import 'package:fast_qr/controllers/qr_generator_controller.dart';
-import 'package:fast_qr/models/qr_code_types.dart';
+import 'package:fast_qr/models/qr_code_types_raw_data.dart';
 import 'package:flutter/material.dart';
 
 class GenerateContactQRView extends StatelessWidget {
@@ -53,7 +53,11 @@ class GenerateContactQRView extends StatelessWidget {
                 String phoneNumber = phoneNumberController.text;
                 String emailAddress = emailAddressController.text;
                 // Generate the QR code based on fullName, phoneNumber, and emailAddress using ContactQRData
-                controller.qrData = ContactQRData(fullName, phoneNumber, emailAddress);
+                controller.qrData = ContactQRData(
+                  fullName: fullName,
+                  phoneNumber: phoneNumber,
+                  emailAddress: emailAddress,
+                );
                 controller.generateQRCode();
               },
               child: Text('Generate QR Code'),

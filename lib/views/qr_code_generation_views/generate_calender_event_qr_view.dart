@@ -1,3 +1,4 @@
+import 'package:fast_qr/models/qr_code_types_raw_data.dart';
 import 'package:flutter/material.dart';
 
 import '../../controllers/qr_generator_controller.dart';
@@ -59,6 +60,13 @@ class GenerateCalendarEventQRView extends StatelessWidget {
                 String endDate = endDateController.text;
                 String location = locationController.text;
                 // Generate the QR code based on eventSummary, startDate, endDate, and location using CalendarEventQRData
+                controller.qrData = CalendarEventQRData(
+                  eventSummary: eventSummary,
+                  startDate: startDate,
+                  endDate: endDate,
+                  location: location,
+                );
+                controller.generateQRCode();
               },
               child: Text('Generate QR Code'),
             ),

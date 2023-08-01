@@ -48,34 +48,47 @@ class QRCodeScannerView extends StatelessWidget {
                     Column(
                       children: [
                         Expanded(child: SizedBox()),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.all(8),
-                              child: IconButton(
-                                onPressed: () => controller.toggleFlash(),
-                                icon: Icon(
-                                  controller.isFlashOn.value
-                                      ? Icons.flash_on
-                                      : Icons.flash_off,
+                        Padding(
+                          padding: EdgeInsets.all(24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: IconButton(
+                                  onPressed: () => controller.toggleFlash(),
+                                  icon: Icon(
+                                    controller.isFlashOn.value
+                                        ? Icons.flash_on
+                                        : Icons.flash_off,
+                                  ),
+                                  color: Colors.black, // Customize icon color if needed
                                 ),
                               ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.all(8),
-                              child: IconButton(
-                                onPressed: () => controller.flipCamera(),
-                                icon: Icon(
-                                  controller.isBackCamera.value
-                                      ? Icons.camera_rear
-                                      : Icons.camera_front,
+                              Container(
+                                margin: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: IconButton(
+                                  onPressed: () => controller.flipCamera(),
+                                  icon: Icon(
+                                    controller.isBackCamera.value
+                                        ? Icons.camera_rear
+                                        : Icons.camera_front,
+                                  ),
+                                  color: Colors.black, // Customize icon color if needed
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),

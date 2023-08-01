@@ -17,7 +17,7 @@ class _HistoryViewState extends State<HistoryView> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Generate QR Code',
+            'History',
             style: TextStyle(
               color: Colors.black,
             ),

@@ -1,7 +1,7 @@
 import 'package:fast_qr/controllers/qr_generator_controller.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/qr_code_types.dart';
+import '../../models/qr_code_types_raw_data.dart';
 
 class GenerateLocationQRView extends StatelessWidget {
   final TextEditingController latitudeController = TextEditingController();
@@ -52,7 +52,8 @@ class GenerateLocationQRView extends StatelessWidget {
                 double longitude =
                     double.tryParse(longitudeController.text) ?? 0.0;
                 // Generate the QR code based on latitude and longitude using LocationQRData
-                controller.qrData = LocationQRData(latitude, longitude);
+                controller.qrData =
+                    LocationQRData(latitude: latitude, longitude: longitude);
                 controller.generateQRCode();
               },
               child: Text('Generate QR Code'),

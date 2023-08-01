@@ -1,22 +1,13 @@
+import 'package:fast_qr/models/qr_type_enum.dart';
 import 'package:flutter/material.dart';
-
-enum QRType {
-  textQR,
-  urlQR,
-  wiFiQR,
-  contactQR,
-  phoneQR,
-  emailQR,
-  calendarEventQR,
-  locationQR,
-}
 
 class QRCodeCategory {
   final String title;
   final IconData icon;
   final QRType qRType;
 
-  QRCodeCategory({required this.title, required this.icon, required this.qRType});
+  QRCodeCategory(
+      {required this.title, required this.icon, required this.qRType});
 }
 
 final List<QRCodeCategory> qrCodeCategories = [
