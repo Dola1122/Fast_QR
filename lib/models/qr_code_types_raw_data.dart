@@ -1,9 +1,11 @@
-import 'package:fast_qr/models/qr_type_enum.dart';
+import 'package:fast_qr/utils/qr_type_enum.dart';
 
 abstract class QRData {
   final QRType qRType;
 
   QRData({required this.qRType});
+
+  Map<String, dynamic> fieldsToJson();
 
   String generateQRDataString();
 }
@@ -14,11 +16,18 @@ class TextQRData extends QRData {
 
   TextQRData({
     required this.text,
-  }) : super(qRType: QRType.textQR);
+  }) : super(qRType: QRType.text);
 
   @override
   String generateQRDataString() {
     return text;
+  }
+
+  @override
+  Map<String, dynamic> fieldsToJson() {
+    return {
+      "text": text,
+    };
   }
 }
 
@@ -28,11 +37,18 @@ class URLQRData extends QRData {
 
   URLQRData({
     required this.url,
-  }) : super(qRType: QRType.urlQR);
+  }) : super(qRType: QRType.url);
 
   @override
   String generateQRDataString() {
     return url;
+  }
+
+  @override
+  Map<String, dynamic> fieldsToJson() {
+    return {
+      "url": url,
+    };
   }
 }
 
@@ -46,11 +62,20 @@ class WiFiQRData extends QRData {
     required this.ssid,
     required this.password,
     required this.encryptionType,
-  }) : super(qRType: QRType.wiFiQR);
+  }) : super(qRType: QRType.wifi);
 
   @override
   String generateQRDataString() {
     return 'WIFI:S:$ssid;T:$encryptionType;P:$password;;';
+  }
+
+  @override
+  Map<String, dynamic> fieldsToJson() {
+    return {
+      "ssid": ssid,
+      "password": password,
+      "encryptionType": encryptionType,
+    };
   }
 }
 
@@ -64,11 +89,20 @@ class ContactQRData extends QRData {
     required this.fullName,
     required this.phoneNumber,
     required this.emailAddress,
-  }) : super(qRType: QRType.contactQR);
+  }) : super(qRType: QRType.contact);
 
   @override
   String generateQRDataString() {
     return 'BEGIN:VCARD\nVERSION:3.0\nFN:$fullName\nTEL:$phoneNumber\nEMAIL:$emailAddress\nEND:VCARD';
+  }
+
+  @override
+  Map<String, dynamic> fieldsToJson() {
+    return {
+      "fullName": fullName,
+      "phoneNumber": phoneNumber,
+      "emailAddress": emailAddress,
+    };
   }
 }
 
@@ -78,11 +112,18 @@ class PhoneQRData extends QRData {
 
   PhoneQRData({
     required this.phoneNumber,
-  }) : super(qRType: QRType.phoneQR);
+  }) : super(qRType: QRType.phone);
 
   @override
   String generateQRDataString() {
     return 'tel:$phoneNumber';
+  }
+
+  @override
+  Map<String, dynamic> fieldsToJson() {
+    return {
+      "phoneNumber": phoneNumber,
+    };
   }
 }
 
@@ -92,11 +133,16 @@ class EmailQRData extends QRData {
 
   EmailQRData({
     required this.emailAddress,
-  }) : super(qRType: QRType.emailQR);
+  }) : super(qRType: QRType.email);
 
   @override
   String generateQRDataString() {
     return 'mailto:$emailAddress';
+  }
+
+  @override
+  Map<String, dynamic> fieldsToJson() {
+    return {"emailAddress": emailAddress};
   }
 }
 
@@ -112,11 +158,21 @@ class CalendarEventQRData extends QRData {
     required this.startDate,
     required this.endDate,
     required this.location,
-  }) : super(qRType: QRType.calendarEventQR);
+  }) : super(qRType: QRType.calendarEvent);
 
   @override
   String generateQRDataString() {
     return 'BEGIN:VEVENT\nSUMMARY:$eventSummary\nDTSTART:$startDate\nDTEND:$endDate\nLOCATION:$location\nEND:VEVENT';
+  }
+
+  @override
+  Map<String, dynamic> fieldsToJson() {
+    return {
+      "eventSummary": eventSummary,
+      "startDate": startDate,
+      "endDate": endDate,
+      "location": location,
+    };
   }
 }
 
@@ -128,10 +184,18 @@ class LocationQRData extends QRData {
   LocationQRData({
     required this.latitude,
     required this.longitude,
-  }) : super(qRType: QRType.locationQR);
+  }) : super(qRType: QRType.location);
 
   @override
   String generateQRDataString() {
     return 'geo:$latitude,$longitude';
+  }
+
+  @override
+  Map<String, dynamic> fieldsToJson() {
+    return {
+      "latitude": longitude,
+      "longitude": longitude,
+    };
   }
 }

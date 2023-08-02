@@ -11,7 +11,7 @@ import '../controllers/qr_generator_controller.dart';
 import '../models/qr_code_categories.dart';
 import 'package:get/get.dart';
 
-import '../models/qr_type_enum.dart';
+import '../utils/qr_type_enum.dart';
 
 class QRCodeGeneratorView extends StatelessWidget {
   QRCodeGeneratorView({Key? key}) : super(key: key);
@@ -89,29 +89,31 @@ class QRCodeGeneratorView extends StatelessWidget {
 
 void onTapCategory(QRType type, QRGeneratorController controller) {
   switch (type) {
-    case QRType.textQR:
+    case QRType.text:
       Get.to(() => GenerateTextQRView(controller: controller));
       break;
-    case QRType.urlQR:
+    case QRType.url:
       Get.to(() => GenerateURLQRView(controller: controller));
       break;
-    case QRType.wiFiQR:
+    case QRType.wifi:
       Get.to(() => GenerateWiFiQRView(controller: controller));
       break;
-    case QRType.contactQR:
+    case QRType.contact:
       Get.to(() => GenerateContactQRView(controller: controller));
       break;
-    case QRType.phoneQR:
+    case QRType.phone:
       Get.to(() => GeneratePhoneQRView(controller: controller));
       break;
-    case QRType.emailQR:
+    case QRType.email:
       Get.to(() => GenerateEmailQRView(controller: controller));
       break;
-    case QRType.calendarEventQR:
+    case QRType.calendarEvent:
       Get.to(() => GenerateCalendarEventQRView(controller: controller));
       break;
-    case QRType.locationQR:
+    case QRType.location:
       Get.to(() => GenerateLocationQRView(controller: controller));
+      break;
+    default:
       break;
   }
 }

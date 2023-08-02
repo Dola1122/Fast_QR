@@ -1,4 +1,4 @@
-import 'package:fast_qr/models/qr_type_enum.dart';
+import 'package:fast_qr/utils/qr_type_enum.dart';
 import 'package:flutter/material.dart';
 
 class QRCodeCategory {
@@ -14,41 +14,41 @@ final List<QRCodeCategory> qrCodeCategories = [
   QRCodeCategory(
     title: 'Plain Text',
     icon: Icons.text_fields,
-    qRType: QRType.textQR,
+    qRType: QRType.text,
   ),
   QRCodeCategory(
     title: 'URL',
     icon: Icons.link,
-    qRType: QRType.urlQR,
+    qRType: QRType.url,
   ),
   QRCodeCategory(
     title: 'WiFi',
     icon: Icons.wifi,
-    qRType: QRType.wiFiQR,
+    qRType: QRType.wifi,
   ),
   QRCodeCategory(
     title: 'Contact',
     icon: Icons.contacts,
-    qRType: QRType.contactQR,
+    qRType: QRType.contact,
   ),
   QRCodeCategory(
     title: 'Phone',
     icon: Icons.phone,
-    qRType: QRType.phoneQR,
+    qRType: QRType.phone,
   ),
   QRCodeCategory(
     title: 'Email',
     icon: Icons.email,
-    qRType: QRType.emailQR,
+    qRType: QRType.email,
   ),
   QRCodeCategory(
     title: 'Calendar Event',
     icon: Icons.event,
-    qRType: QRType.calendarEventQR,
+    qRType: QRType.calendarEvent,
   ),
   QRCodeCategory(
     title: 'Location',
     icon: Icons.location_on,
-    qRType: QRType.locationQR,
+    qRType: QRType.location,
   ),
 ];

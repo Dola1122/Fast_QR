@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import '../utils/qr_type_enum.dart';
 
 class QRCodeModel {
   final int id;
   final String title;
-  final String type;
+  final QRType type;
   final BarcodeFormat format;
   final String dataString;
   final DateTime date;
   final bool isFavorite;
   final bool isScanned;
   final Icon icon;
+  final Map<String, dynamic>
+      fields;
 
   QRCodeModel({
     this.id = 0,
@@ -22,13 +25,14 @@ class QRCodeModel {
     required this.isFavorite,
     required this.isScanned,
     required this.icon,
+    required this.fields,
   });
 
   factory QRCodeModel.fromJson(Map<String, dynamic> json) {
     return QRCodeModel(
       id: json['id'],
       title: json['title'],
-      type: json['type'],
+      type: QRType.values.firstWhere((type) => type.name == json['type']),
       format: BarcodeFormat.values
           .firstWhere((format) => format.name == json['format']),
       dataString: json['dataString'],
@@ -38,6 +42,7 @@ class QRCodeModel {
       icon: Icon(
         IconData(int.parse(json['icon']), fontFamily: 'MaterialIcons'),
       ),
+      fields: json['fields'], // Assuming fields are stored as a Map in JSON
     );
   }
 
@@ -45,13 +50,14 @@ class QRCodeModel {
     return {
       'id': id,
       'title': title,
-      'type': type,
+      'type': type.name,
       'format': format.name,
       'dataString': dataString,
       'date': date.toIso8601String(),
       'isFavorite': isFavorite ? 1 : 0,
       'isScanned': isScanned ? 1 : 0,
       'icon': icon.icon?.codePoint.toString(),
+      'fields': fields,
     };
   }
 }
