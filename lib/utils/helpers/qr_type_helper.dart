@@ -1,7 +1,8 @@
 import '../qr_type_enum.dart';
 
 
-class QRCodeParser {
+class QRTypeHelper {
+
   QRType getQRCodeType(String qrData) {
     if (_isURL(qrData)) {
       return QRType.url;

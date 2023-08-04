@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/qr_generator_controller.dart';
-import '../../models/qr_code_types_raw_data.dart';
+import '../../utils/helpers/qr_data_helper.dart';
 
 class GenerateTextQRView extends StatelessWidget {
   final TextEditingController textController = TextEditingController();

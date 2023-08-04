@@ -7,7 +7,7 @@ class GeneratedQRView extends StatelessWidget {
   final String qrData;
   final QRGeneratorController controller;
 
-  const GeneratedQRView({
+  GeneratedQRView({
     super.key,
     required this.qrData,
     required this.controller,

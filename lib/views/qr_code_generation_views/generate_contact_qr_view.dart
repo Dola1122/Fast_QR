@@ -1,5 +1,5 @@
 import 'package:fast_qr/controllers/qr_generator_controller.dart';
-import 'package:fast_qr/models/qr_code_types_raw_data.dart';
+import 'package:fast_qr/utils/helpers/qr_data_helper.dart';
 import 'package:flutter/material.dart';
 
 class GenerateContactQRView extends StatelessWidget {

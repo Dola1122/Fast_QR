@@ -1,17 +1,17 @@
 import 'package:fast_qr/utils/qr_type_enum.dart';
 
-abstract class QRData {
+abstract class QRDataHelper {
   final QRType qRType;
 
-  QRData({required this.qRType});
+  QRDataHelper({required this.qRType});
 
-  Map<String, dynamic> fieldsToJson();
+  Map<String, dynamic> getJsonFields();
 
-  String generateQRDataString();
+  String getRawDataString();
 }
 
 // Plain Text
-class TextQRData extends QRData {
+class TextQRData extends QRDataHelper {
   final String text;
 
   TextQRData({
@@ -19,12 +19,12 @@ class TextQRData extends QRData {
   }) : super(qRType: QRType.text);
 
   @override
-  String generateQRDataString() {
+  String getRawDataString() {
     return text;
   }
 
   @override
-  Map<String, dynamic> fieldsToJson() {
+  Map<String, dynamic> getJsonFields() {
     return {
       "text": text,
     };
@@ -32,7 +32,7 @@ class TextQRData extends QRData {
 }
 
 // URL
-class URLQRData extends QRData {
+class URLQRData extends QRDataHelper {
   final String url;
 
   URLQRData({
@@ -40,12 +40,12 @@ class URLQRData extends QRData {
   }) : super(qRType: QRType.url);
 
   @override
-  String generateQRDataString() {
+  String getRawDataString() {
     return url;
   }
 
   @override
-  Map<String, dynamic> fieldsToJson() {
+  Map<String, dynamic> getJsonFields() {
     return {
       "url": url,
     };
@@ -53,7 +53,7 @@ class URLQRData extends QRData {
 }
 
 // WiFi
-class WiFiQRData extends QRData {
+class WiFiQRData extends QRDataHelper {
   final String ssid;
   final String password;
   final String encryptionType;
@@ -65,12 +65,12 @@ class WiFiQRData extends QRData {
   }) : super(qRType: QRType.wifi);
 
   @override
-  String generateQRDataString() {
+  String getRawDataString() {
     return 'WIFI:S:$ssid;T:$encryptionType;P:$password;;';
   }
 
   @override
-  Map<String, dynamic> fieldsToJson() {
+  Map<String, dynamic> getJsonFields() {
     return {
       "ssid": ssid,
       "password": password,
@@ -80,7 +80,7 @@ class WiFiQRData extends QRData {
 }
 
 // Contact
-class ContactQRData extends QRData {
+class ContactQRData extends QRDataHelper {
   final String fullName;
   final String phoneNumber;
   final String emailAddress;
@@ -92,12 +92,12 @@ class ContactQRData extends QRData {
   }) : super(qRType: QRType.contact);
 
   @override
-  String generateQRDataString() {
+  String getRawDataString() {
     return 'BEGIN:VCARD\nVERSION:3.0\nFN:$fullName\nTEL:$phoneNumber\nEMAIL:$emailAddress\nEND:VCARD';
   }
 
   @override
-  Map<String, dynamic> fieldsToJson() {
+  Map<String, dynamic> getJsonFields() {
     return {
       "fullName": fullName,
       "phoneNumber": phoneNumber,
@@ -107,7 +107,7 @@ class ContactQRData extends QRData {
 }
 
 // Phone
-class PhoneQRData extends QRData {
+class PhoneQRData extends QRDataHelper {
   final String phoneNumber;
 
   PhoneQRData({
@@ -115,12 +115,12 @@ class PhoneQRData extends QRData {
   }) : super(qRType: QRType.phone);
 
   @override
-  String generateQRDataString() {
+  String getRawDataString() {
     return 'tel:$phoneNumber';
   }
 
   @override
-  Map<String, dynamic> fieldsToJson() {
+  Map<String, dynamic> getJsonFields() {
     return {
       "phoneNumber": phoneNumber,
     };
@@ -128,7 +128,7 @@ class PhoneQRData extends QRData {
 }
 
 // Email
-class EmailQRData extends QRData {
+class EmailQRData extends QRDataHelper {
   final String emailAddress;
 
   EmailQRData({
@@ -136,18 +136,18 @@ class EmailQRData extends QRData {
   }) : super(qRType: QRType.email);
 
   @override
-  String generateQRDataString() {
+  String getRawDataString() {
     return 'mailto:$emailAddress';
   }
 
   @override
-  Map<String, dynamic> fieldsToJson() {
+  Map<String, dynamic> getJsonFields() {
     return {"emailAddress": emailAddress};
   }
 }
 
 // Calendar Event
-class CalendarEventQRData extends QRData {
+class CalendarEventQRData extends QRDataHelper {
   final String eventSummary;
   final String startDate;
   final String endDate;
@@ -161,12 +161,12 @@ class CalendarEventQRData extends QRData {
   }) : super(qRType: QRType.calendarEvent);
 
   @override
-  String generateQRDataString() {
+  String getRawDataString() {
     return 'BEGIN:VEVENT\nSUMMARY:$eventSummary\nDTSTART:$startDate\nDTEND:$endDate\nLOCATION:$location\nEND:VEVENT';
   }
 
   @override
-  Map<String, dynamic> fieldsToJson() {
+  Map<String, dynamic> getJsonFields() {
     return {
       "eventSummary": eventSummary,
       "startDate": startDate,
@@ -177,7 +177,7 @@ class CalendarEventQRData extends QRData {
 }
 
 // Location
-class LocationQRData extends QRData {
+class LocationQRData extends QRDataHelper {
   final double latitude;
   final double longitude;
 
@@ -187,12 +187,12 @@ class LocationQRData extends QRData {
   }) : super(qRType: QRType.location);
 
   @override
-  String generateQRDataString() {
+  String getRawDataString() {
     return 'geo:$latitude,$longitude';
   }
 
   @override
-  Map<String, dynamic> fieldsToJson() {
+  Map<String, dynamic> getJsonFields() {
     return {
       "latitude": longitude,
       "longitude": longitude,

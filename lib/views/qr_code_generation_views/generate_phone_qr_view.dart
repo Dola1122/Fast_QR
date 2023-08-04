@@ -1,7 +1,7 @@
 import 'package:fast_qr/controllers/qr_generator_controller.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/qr_code_types_raw_data.dart';
+import '../../utils/helpers/qr_data_helper.dart';
 
 class GeneratePhoneQRView extends StatelessWidget {
   final TextEditingController phoneNumberController = TextEditingController();
