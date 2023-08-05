@@ -42,6 +42,12 @@ class GeneratedQRView extends StatelessWidget {
               }, // Call the function to save QR code
               child: Text("Save QR Code"),
             ),
+            ElevatedButton(
+              onPressed: () async {
+                await controller.shareQRCode();
+              }, // Call the function to save QR code
+              child: Text("Share QR Code"),
+            ),
           ],
         ),
       ),
