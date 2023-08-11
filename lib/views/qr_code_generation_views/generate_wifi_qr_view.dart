@@ -54,7 +54,7 @@ class GenerateWiFiQRView extends StatelessWidget {
                 String password = passwordController.text;
                 String encryptionType = encryptionTypeController.text;
                 // Generate the QR code based on ssid, password, and encryptionType using WiFiQRData
-                controller.qrData = WiFiQRData(
+                controller.qrData = WifiQRData(
                   ssid: ssid,
                   password: password,
                   encryptionType: encryptionType,

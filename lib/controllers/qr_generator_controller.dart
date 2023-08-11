@@ -11,28 +11,23 @@ import 'package:qr_flutter/qr_flutter.dart';
 import '../utils/helpers/qr_data_helper.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
-
 import 'package:share_plus/share_plus.dart';
-// import 'package:flutter_share/flutter_share.dart';
 import 'package:path_provider/path_provider.dart';
 
 class QRGeneratorController extends GetxController {
-  late QRDataHelper qrData;
-  late String qrStringData;
+  late QRData qrData;
   ScreenshotController screenshotController = ScreenshotController();
 
   // Function to generate the QR code and navigate to the QRCodeView
   void generateQRCode() {
-    qrStringData = qrData.getRawDataString();
-
     // Navigate to the QRCodeView and pass the generated QR data as an argument
     Get.to(() => GeneratedQRView(
-          qrData: qrStringData,
+          qrData: qrData.dataString,
           controller: this,
         ));
   }
 
-  Future<void> saveQRCode() async {
+  Future<void> saveQRCodeToGallery() async {
     try {
       // Ask for permission before proceeding
       PermissionStatus status = await Permission.storage.request();
@@ -46,7 +41,7 @@ class QRGeneratorController extends GetxController {
           color: Colors.white,
           padding: const EdgeInsets.all(30.0),
           child: QrImageView(
-            data: qrStringData,
+            data: qrData.dataString,
             version: QrVersions.auto,
           ),
         ),
@@ -72,7 +67,7 @@ class QRGeneratorController extends GetxController {
           color: Colors.white,
           padding: const EdgeInsets.all(30.0),
           child: QrImageView(
-            data: qrStringData,
+            data: qrData.dataString,
             version: QrVersions.auto,
           ),
         ),
@@ -81,7 +76,8 @@ class QRGeneratorController extends GetxController {
 
       // Save the captured image to temporary directory
       final tempDir = await getTemporaryDirectory();
-      final tempFile = File('${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.png');
+      final tempFile =
+          File('${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.png');
       await tempFile.writeAsBytes(capturedImage);
       print('Temporary file path: ${tempFile.path}');
 

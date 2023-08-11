@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:get/get.dart';
 import '../controllers/qr_generator_controller.dart';
 
 class GeneratedQRView extends StatelessWidget {
@@ -36,18 +35,23 @@ class GeneratedQRView extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                await controller.saveQRCode();
-              }, // Call the function to save QR code
-              child: Text("Save QR Code"),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await controller.shareQRCode();
-              }, // Call the function to save QR code
-              child: Text("Share QR Code"),
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    await controller.saveQRCodeToGallery();
+                  }, // Call the function to save QR code
+                  child: Text("Save QR Code"),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    await controller.shareQRCode();
+                  }, // Call the function to save QR code
+                  child: Text("Share QR Code"),
+                ),
+              ],
+            )
           ],
         ),
       ),

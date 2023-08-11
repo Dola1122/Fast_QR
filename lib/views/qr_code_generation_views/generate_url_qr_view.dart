@@ -41,7 +41,7 @@ class GenerateURLQRView extends StatelessWidget {
               onPressed: () {
                 String url = urlController.text;
                 // Generate the QR code based on url using URLQRData
-                controller.qrData = URLQRData(url: url);
+                controller.qrData = UrlQRData(url: url);
                 controller.generateQRCode();
               },
               child: Text('Generate QR Code'),
